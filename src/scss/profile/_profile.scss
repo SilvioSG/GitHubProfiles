@@ -1,0 +1,27 @@
+@import '../../assets/scss/index.scss';
+
+#profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem;
+  padding: .5rem;
+
+  .profile__img {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+  }
+
+  .profile__info__name {
+    @include font-style-1;
+    font-size: 3.3rem;
+    margin-bottom: .5rem;
+  }
+
+  .profile__info__bio {
+    font-size: 2rem;
+  }
+}
+
+@import './_desktop-profile';

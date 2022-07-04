@@ -1,74 +1,108 @@
 <template>
-  <div id="app">
-    <NavBar />
-    <div class="container">
-      <div class="card card-body">
-        <h1>Pesquisar usuários do GitHub</h1>
-        <p class="lead">Digite um nome para encontrar usuário eo repositório</p>
-        <input
-          @keyup="getUser"
-          type="text"
-          name="form-control"
-          id="search"
-          required
-        />
-      </div>
-
-      <div class="row mt-3" v-if="user.length !== 0">
-        <div class="col-md-4">
-          <Profile :user="user" />
-        </div>
-        <div class="col-md-8">
-          <Repo v-for="repo in repos" :key="repo" :repo="repo" />
-        </div>
-      </div>
-    </div>
+  <div id="container">
+    <LogoBar />
+    <Profile v-if="username !== ''" />
+    <UnderlineNav v-if="username !== ''" />
+    <transition
+      enter-active-class="animate__animated  animate__fadeIn"
+      leave-active-class="animate__animated  animate__fadeOut"
+      mode="out-in"
+      appear
+    >
+      <router-view />
+    </transition>
   </div>
 </template>
 
 <script>
-import NavBar from "./components/NavBar.vue";
+import LogoBar from "./components/LogoBar.vue";
+import UnderlineNav from "./components/UnderlineNav.vue";
 import Profile from "./components/Profile.vue";
-import Repo from "./components/Repo.vue";
+
 import axios from "axios";
 
 export default {
-  name: "app",
+  components: { LogoBar, UnderlineNav, Profile },
   data() {
-    return {
-      github: {
-        url: "https://api.github.com/users",
-        client_id: "90978c54287ef2f1feff",
-        client_secret: "4a962dc8bd628b20313aef36fded8c413e93d1fc",
-        count: " ",
-        sort: "created: asc",
-      },
-      user: [],
-      repos: [],
-    };
+    return {};
   },
-  components: {
-    NavBar,
-    Profile,
-    Repo,
+  watch: {
+    username: function () {
+      this.newRequest();
+      if (this.username == "") {
+        this.$router.push({ name: "Home" });
+      } else {
+        this.$router.push({ name: "ReposList" });
+      }
+    },
+  },
+  computed: {
+    requestError() {
+      return this.$store.state.requestError;
+    },
+    username() {
+      return this.$store.state.username;
+    },
   },
   methods: {
-    getUser(e) {
-      const user = e.target.value;
-      const { url, client_id, client_secret, count, sort } = this.github;
-
-      axios
-        .get(
-          `${url}/${user}?client_id=${client_id}&client_secret=${client_secret}`
-        )
-        .then(({ data }) => (this.user = data));
-
-      axios
-        .get(
-          `${url}/${user}/repos?per_page=${count}&sort=${sort}&client_id=${client_id}&client_secret=${client_secret}`
-        )
-        .then(({ data }) => (this.repos = data));
+    newRequest() {
+      if (this.username !== "") {
+        axios
+          .get(`https://api.github.com/users/${this.username}`)
+          .then((response) => {
+            const userInfo_data = response.data;
+            this.updateUserInfo(userInfo_data);
+            this.updateRequestError(false);
+          })
+          .catch((error) => {
+            if (error.status !== 200 || error.status != 304) {
+              this.updateUsername("");
+              this.updateRequestError(true);
+            }
+          });
+        // Gets user's repositories
+        axios
+          .get(`https://api.github.com/users/${this.username}/repos`)
+          .then((response) => {
+            const userRepos_data = response.data;
+            this.updateUserRepos(userRepos_data);
+            this.updateRequestError(false);
+          })
+          .catch((error) => {
+            this.updateUsername("");
+            this.updateRequestError(true);
+          });
+        // Gets user's starred repositories
+        axios
+          .get(`https://api.github.com/users/${this.username}/starred`)
+          .then((response) => {
+            const userStarred_data = response.data;
+            this.updateUserStarred(userStarred_data);
+            this.updateRequestError(false);
+          })
+          .catch((error) => {
+            this.updateUsername("");
+            this.updateRequestError(true);
+          });
+      }
+    },
+    updateRequestError(payload) {
+      this.$store.commit("mutateRequestError", payload);
+    },
+    updateUsername(payload) {
+      this.$store.commit("mutateUsername", payload);
+    },
+    updateUserInfo(payload) {
+      this.$store.commit("mutateUserInfo", payload);
+    },
+    updateUserRepos(payload) {
+      this.$store.commit("mutateUserRepos", payload);
+    },
+    updateUserStarred(payload) {
+      this.$store.commit("mutateUserStarred", payload);
     },
   },
 };
 </script>
+
+<style lang="scss" src="./assets/scss/app/_app.scss" />

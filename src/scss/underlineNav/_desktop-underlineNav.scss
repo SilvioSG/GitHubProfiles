@@ -1,0 +1,9 @@
+@import '../../assets/scss/index.scss';
+
+#underlineNav {
+  @include desktop {
+    align-self: start;
+    grid-column: 2/span all;
+    grid-row: 3;
+  }
+}

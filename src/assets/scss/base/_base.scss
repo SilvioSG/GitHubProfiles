@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+// VARIABLES 
+$color-border: #E3E3E3;
+$color-border-darker: #999999;
+$color-counter-text: #FFFFFF;
+$color-counter-bg: #E3E3E3;
+$color-bg-dark: #5C646D;
+$color-repos-title: #389ADB;
+$color-txt-dark: #586069;
+$color-txt-light: #FFFFFF;
+$color-underlinenav-border: #E1E4E8;
+$color-dark-blue: #090267;
+$font-size: 10px;
+$hover-opacity: .85;
+$letter-spacing: 1px;
+$wrapper-width: 90%;
+$transition-time-quick: .3s;
+
+// MIXINS 
+@mixin font-style-1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+@mixin font-style-2 {
+  font-family: 'Monteserrat', Arial, Helvetica;
+  font-size: 7px;
+  font-weight: 400;
+}
+
+//large Screen  < 1080 screen size
+@mixin desktop {
+  @media only screen and (min-width: 1080px) {
+    @content;
+  }
+}
+
+//Medium Screen - 375 to 767 screen size
+@mixin tablet {
+  @media only screen and (min-width: 767px) {
+    @content;
+  }
+}
+
+// CLASSES 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin: 0 auto;
+  width: $wrapper-width;
+}

@@ -1,0 +1,23 @@
+@import '../index.scss';
+
+* {
+  box-sizing: border-box;
+  color: $color-txt-dark;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  @include font-style-2;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-content: center;
+  }
+}

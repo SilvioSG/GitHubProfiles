@@ -1,4 +1,4 @@
-<template>
+<!-- Scope <template>
   <div class="card card-body mb-2">
     <div class="row">
       <div class="col-md-6">
@@ -20,3 +20,4 @@ export default {
   props: ["repo"],
 };
 </script>
+--> 

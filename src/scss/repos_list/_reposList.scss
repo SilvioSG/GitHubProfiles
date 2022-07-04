@@ -1,0 +1,69 @@
+@import '../../assets/scss/index.scss';
+
+.reposList {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  * {
+    @include font-style-2;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .reposList__item {
+    border-bottom: 1px solid $color-underlinenav-border;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 2rem 0;
+    // max-width: 500px;
+
+    a {
+      grid-column: 1 / span all;
+      line-height: 3.4rem;
+
+      @include font-style-1;
+      font-size: 3rem;
+      color: $color-repos-title;
+
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &__description {
+      grid-column: 1 / span all;
+    }
+
+    &__git-info {
+      grid-column: 1;
+      grid-row: 3;
+      display: flex;
+      align-items: center;
+      gap: 2vw;
+
+      &__lang,
+      &__fork {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0;
+
+        img {
+          height: 15px;
+          width: 15px;
+        }
+
+        p {
+          width: max-content;
+        }
+      }
+    }
+  }
+}
+
+@import './_desktop-reposList.scss';

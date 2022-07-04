@@ -1,0 +1,8 @@
+@import '../../assets/scss/index.scss';
+
+.nameFilter {
+  @include desktop {
+    margin: 2rem 3.1vw;
+    max-width: 400px;
+  }
+}

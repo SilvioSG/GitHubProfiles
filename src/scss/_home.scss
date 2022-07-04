@@ -1,0 +1,39 @@
+@import '../assets/scss/index.scss';
+
+#home {
+  @include desktop {
+    grid-column: 1 / span all;
+  }
+
+  * {
+    @include font-style-1;
+    font-size: 2rem;
+  }
+
+  .new-username {
+    padding-top: 20px;
+
+
+    &__input-txt,
+    &__error-txt {
+      align-self: center;
+      background-color: $color-counter-bg;
+      border-radius: 1rem;
+      margin-top: 20px;
+      padding: 1rem .5rem;
+      max-width: 350px;
+
+      & em {
+        color: $color-dark-blue;
+      }
+    }
+
+    &__error-txt {
+      background-color: $color-dark-blue;
+
+      & em {
+        color: $color-counter-bg;
+      }
+    }
+  }
+}

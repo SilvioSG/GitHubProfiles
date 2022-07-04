@@ -1,0 +1,40 @@
+@import '../../assets/scss/index.scss';
+
+.nameFilter {
+  align-self: start;
+  border: 2px solid $color-border;
+  border-radius: 5px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+  margin: 2rem 5vw;
+  padding: 0 1rem;
+  position: relative;
+  width: $wrapper-width;
+  max-width: 400px;
+
+  svg {
+    path {
+      fill: $color-border-darker;
+    }
+  }
+
+  .nameFilter__input {
+    border: none;
+    font-size: 2rem;
+    height: 40px;
+    width: $wrapper-width;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:placeholder-shown {
+      font-size: 1.3em;
+    }
+  }
+}
+
+@import './desktop-filterName';

@@ -1,0 +1,18 @@
+@import '../../assets/scss/index.scss';
+
+#profile {
+  @include desktop {
+    flex-direction: column;
+    grid-row: 3;
+
+    .profile__img {
+      height: 210px;
+      width: 210px;
+    }
+
+    .profile__info__name,
+    .profile__info__bio {
+      text-align: center;
+    }
+  }
+}

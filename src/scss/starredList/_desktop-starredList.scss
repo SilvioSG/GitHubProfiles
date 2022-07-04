@@ -1,0 +1,10 @@
+@import '../../assets/scss/index.scss';
+
+.starredList {
+  @include desktop {
+    align-self: center;
+    grid-column: 2/span all;
+    grid-row: 3;
+    margin: 100px 0 0 0;
+  }
+}
